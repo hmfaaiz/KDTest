@@ -52,6 +52,8 @@ const LoginUser = async (req, res) => {
 
 }
 
+
+//private
 const GetImage = async (req, res) => {
     Authentication(req, res, async () => {
         try {
@@ -65,6 +67,24 @@ const GetImage = async (req, res) => {
 
 
     })
+
+}
+
+//public
+
+const PubGetImage = async (req, res) => {
+  
+        try {
+            const file = await Book.findById(req.params.fileId);
+            console.log(file.imgname)
+
+        } catch (error) {
+            console.error(error.message);
+            res.status(404).json({ msg: error.message });
+        }
+
+
+  
 
 }
 
@@ -92,5 +112,5 @@ const AddImage = async (req, res) => {
 
 
 module.exports = {
-    RegisterUser, LoginUser, GetImage, AddImage
+    RegisterUser, LoginUser, GetImage, AddImage,PubGetImage
 }
