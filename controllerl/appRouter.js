@@ -1,5 +1,6 @@
 const route = require("express").Router()
 const { RegisterUser,LoginUser,AddImage,PubGetImage }=require("./middleware")
+const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 route.post("/register", (req, res) => {
     RegisterUser(req, res)
