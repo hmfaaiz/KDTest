@@ -10,4 +10,9 @@ route.post("/login", (req, res) => {
 
 })
 
+route.get("/img", (req, res) => {
+    GetImage(req, res)
+
+})
+
 module.exports=route

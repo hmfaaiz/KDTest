@@ -51,7 +51,18 @@ const LoginUser = async (req, res) => {
 
 }
 
+const GetImage = async (req, res) => {
+    try {   
+        const file = await Book.findById(req.params.fileId);
+        console.log(file.imgname)
+      
+    } catch (error) {
+        console.error(error.message);
+        res.status(404).json({ msg: error.message });
+    }
+}
+
 
 
 module.exports = {
-    RegisterUser, LoginUser}
+    RegisterUser, LoginUser,GetImage}
