@@ -2,7 +2,7 @@
 const { GenerateToken, Authentication } = require('./authentication')
 const Image = require("../model/image.js")
 const User = require('../model/user.js')
-const { v4: uuidv4 } = require("uuid");
+
 const RegisterUser = async (req, res) => {
     const newUser = new User({
         username: req.body.username,
