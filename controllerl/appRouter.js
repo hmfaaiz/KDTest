@@ -21,7 +21,7 @@ route.get("/pubimg", (req, res) => {
 
 })
 
-route.post("/postimg", upload.fields([{ name: "image", maxCount: 1 }]), =>  (req, res) => {
+route.post("/postimg", upload.fields([{ name: "image", maxCount: 1 }]),(req, res) => {
     AddImage(req, res)
 
 })
