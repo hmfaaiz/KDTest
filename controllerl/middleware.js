@@ -1,7 +1,8 @@
 
 const { GenerateToken, Authentication } = require('./authentication')
-
-
+const Image = require("../model/image.js")
+const User = require('../model/user.js')
+const { v4: uuidv4 } = require("uuid");
 const RegisterUser = async (req, res) => {
     const newUser = new User({
         username: req.body.username,
@@ -41,28 +42,55 @@ const LoginUser = async (req, res) => {
         }
         else {
 
-            return res.status(404).json({"password":false})
+            return res.status(404).json({ "password": false })
         }
 
     }
     else {
-        return res.status(404).json({"user":false})
+        return res.status(404).json({ "user": false })
     }
 
 }
 
 const GetImage = async (req, res) => {
-    try {   
-        const file = await Book.findById(req.params.fileId);
-        console.log(file.imgname)
-      
-    } catch (error) {
-        console.error(error.message);
-        res.status(404).json({ msg: error.message });
-    }
+    Authentication(req, res, async () => {
+        try {
+            const file = await Book.findById(req.params.fileId);
+            console.log(file.imgname)
+
+        } catch (error) {
+            console.error(error.message);
+            res.status(404).json({ msg: error.message });
+        }
+
+
+    })
+
+}
+
+const AddImage = async (req, res) => {
+    Authentication(req, res, async () => {
+        const img = new Image({
+            isbn: req.body.isbn,
+            image: req.files["image"][0].path,
+            imgname: req.files["image"][0].originalname
+        });
+
+        try {
+            const saveimage = await img.save()
+            return res.status(200).json(saveimage)
+        }
+        catch (err) {
+            return res.status(500).json(err)
+        }
+
+
+    })
 }
 
 
 
+
 module.exports = {
-    RegisterUser, LoginUser,GetImage}
+    RegisterUser, LoginUser, GetImage, AddImage
+}
